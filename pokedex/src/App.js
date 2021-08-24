@@ -6,6 +6,8 @@ import FavPokemon from "./components/FavPokemon"
 class App extends Component {
   render() {
     return (
+      // should I add the link to AllPokemon here?
+      
         <div className="app-wrapper">
           <Pokemon />
           <hr />
