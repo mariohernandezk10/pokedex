@@ -38,6 +38,10 @@ export default function Pokemon() {
         encounterWildPokemon();
     }
 
+    const releasePokemon = (id) => {
+        setPokedex(state => state.filter(p => p.id !== id))
+    }
+
     return (
         <>
         <header>
@@ -59,7 +63,7 @@ export default function Pokemon() {
                     <div className="pokemon" key={pokemon.id}>
                         <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`} alt="caught pokemon" className="sprite"/>
                         <h3 className="pokemon-name">{pokemon.name}</h3>
-                        <button className="remove">&times;</button>
+                        <button className="remove" onClick={() => releasePokemon(pokemon.id)} >&times;</button>
                     </div>
                 ))}
             </div>

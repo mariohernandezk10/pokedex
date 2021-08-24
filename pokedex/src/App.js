@@ -1,13 +1,15 @@
 import './App.css';
 import React, {Component} from 'react';
-import Pokemon from "./components/Pokemon"
+import Pokemon from "./components/Pokemon";
+import FavPokemon from "./components/FavPokemon"
 
 class App extends Component {
   render() {
     return (
         <div className="app-wrapper">
           <Pokemon />
-          {/* <FavPokemon pokemon="mew" /> */}
+          <hr />
+          <FavPokemon pokemon={150} />
           {/* useReducer may be better for this component because 
           when the pokemon changes so does the background */}
         </div>
