@@ -17,11 +17,13 @@ function App() {
     // "wildPokemonState" 
     const [pokedexState, setPokedexState] = useState([]);
     const [wildPokemonState, setwildPokemonState] = useState({});
-    const [typeState, setTypeToState] = useState([]);
+    const [ContainerOfTypesState, setContainerOfTypesToState] = useState([]);
 
     useEffect(() => {
-        typeState.map(type => console.log(type.type))
-    }, [typeState])
+        ContainerOfTypesState.map(type => type.type.name);
+        // Im going to return values and use another useState to save them in
+        // a typesState 
+    }, [ContainerOfTypesState])
 
     useEffect(() => {
         encounterWildPokemon();
@@ -43,7 +45,7 @@ function App() {
         .get(`https://pokeapi.co/api/v2/pokemon/${pokeId()}`)
         .then(res => {
             setwildPokemonState(res.data);
-            setTypeToState(res.data.types);
+            setContainerOfTypesToState(res.data.types);
         })
     }
     // That's it for the only function that will be called as 
