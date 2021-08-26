@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // You can use props or destructor {pokemon} from component
+// I CAN SEE IF I CAN GET AS MUCH INFO AS I CAN FROM ONE POKEMON AND ADD IT DYNAMICALLY
+// BASE EXPERIENCE, HEIGHT, NAME, SPRITE, ALL STATS, TYPES, AND WEIGHT
 export default function FavPokemon(props) {
     const [data, setData] = useState({});
 

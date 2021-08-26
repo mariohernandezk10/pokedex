@@ -8,7 +8,6 @@ import './index.css';
 // the first pokemon to get automatically saved in the state, this
 // state has a default value of an empty object because there will be 
 // only one wild pokemon present at a time
-// 
 
 function App() {
     // the "setPokedexState" function will be called when we 
@@ -40,7 +39,6 @@ function App() {
         return Math.floor(Math.random() * (max - min + 1)) + min
     }
 
-    // create another get function, but you cant because it will need the same pokeId
     const encounterWildPokemon = () => {
         axios
         .get(`https://pokeapi.co/api/v2/pokemon/${pokeId()}`)
@@ -50,12 +48,13 @@ function App() {
             if (res.data.types[0] && res.data.types[1]) {
                 setPokemonTypeState(res.data.types[0].type.name);
                 setPokemon2ndTypeState(res.data.types[1].type.name);
-            } if (res.data.types[0].type.name && !res.data.types[1]) {
+            } if (res.data.types[0] && !res.data.types[1]) {
                 setPokemonTypeState(res.data.types[0].type.name);
-                setPokemon2ndTypeState([])
+                setPokemon2ndTypeState([]);
                 // I need to reset "pokemon2ndTypeState" to []
+                // console.log("First type has been updated")
             } else {
-                console.log("error");
+                // console.log("Both types have been updated");
             }
         })
     }
@@ -90,23 +89,24 @@ function App() {
                 <h3 className="subtitle">With Pokemon</h3>
             </header>
 
-{/* ------------------THIS IS WHERE WE RENDER THE WILD POKEMON HTML-------------------------------------------------------------------------------------------------------------------------- */}
-{/* ------------------ALSO, WHERE WE USE THE "wildPokemonState" VARIABLE--------------------------------------------------------------------------------------------------------------------- */}
+{/* ------------------WHERE WE USE THE "wildPokemonState" and "pokemonTypeState" VARIABLE--------------------------------------------------------------------------------------------------------------------- */}
 {/* ------------------TO DYNAMICALLY ADD IT TO THE IMG AND ANYTHING ELSE--------------------------------------------------------------------------------------------------------------------- */}
             <section className="wild-pokemon">
                 <h2>Wild Encounter</h2>
                 <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${wildPokemonState.id}.svg`} alt="wild pokemon" className="sprite"/>
                 <h3>{wildPokemonState.name}</h3>
                 <h4>Base Experience: {wildPokemonState.base_experience}</h4>
-                <h4 >Type: {pokemonTypeState}</h4>
+                <h4 >Type 1: {pokemonTypeState}</h4>
+                <h4>Type 2: {pokemon2ndTypeState}</h4>
                 <button className="catch-btn" onClick={() => catchPokemon(wildPokemonState)}>CATCH THAT POKEMON</button>
             </section>
 
-            <section className="pokedex">
+            {/* Can I save info of each pokemon to each section that is created by adding it to the attribute? */}
+            <section className="pokedex" >
                 <h2>Pokedex</h2>
                 <div className="pokedex-list">
                     {pokedexState.map((pokemon) => (
-                        <div className="pokemon" key={pokemon.id}>
+                        <div className="pokemon" key={pokemon.id} info={pokemon} >
                             <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`} alt="caught pokemon" className="sprite"/>
                             <h3 className="pokemon-name">{pokemon.name}</h3>
                             <button className="remove" onClick={() => releasePokemon(pokemon.id)} >&times;</button>
