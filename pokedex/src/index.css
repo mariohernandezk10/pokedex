@@ -137,6 +137,13 @@ header {
   background: #f3f3f3;
 }
 
+.pokedex-list .pokemon h3{
+  text-transform: uppercase;
+  font-size: medium;
+  position: absolute;
+  bottom: 0;
+}
+
 .pokedex-list .pokemon .remove {
   position: absolute;
   top: 0;
