@@ -101,7 +101,8 @@ function App() {
                 <button className="catch-btn" onClick={() => catchPokemon(wildPokemonState)}>CATCH THAT POKEMON</button>
             </section>
 
-            {/* Can I save info of each pokemon to each section that is created by adding it to the attribute? */}
+            {/* ADD A LINK THAT WILL SEND ME TO ANOTHER PAGE, POSSIBILY A FAVORITE POKEMON PAGE TO LEARN MORE ABOUT POKEMON
+            THE H3 ELEMENT CAN BE A LINK WHERE THE LETTERS CAN BE CLICKED */}
             <section className="pokedex" >
                 <h2>Pokedex</h2>
                 <div className="pokedex-list">
