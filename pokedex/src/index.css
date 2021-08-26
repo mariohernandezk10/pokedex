@@ -81,6 +81,7 @@ header {
 }
 
 .wild-pokemon h4 {
+  padding-top: 3px;
   color: #f3f3f3;
   font-size: 22px;
   font-weight: 700;

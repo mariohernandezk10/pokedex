@@ -17,13 +17,12 @@ function App() {
     // "wildPokemonState" 
     const [pokedexState, setPokedexState] = useState([]);
     const [wildPokemonState, setwildPokemonState] = useState({});
-    const [ContainerOfTypesState, setContainerOfTypesToState] = useState([]);
+    const [pokemonTypeState, setPokemonTypeState] = useState([]);
+    const [pokemon2ndTypeState, setPokemon2ndTypeState] = useState([]);
 
-    useEffect(() => {
-        ContainerOfTypesState.map(type => type.type.name);
-        // Im going to return values and use another useState to save them in
-        // a typesState 
-    }, [ContainerOfTypesState])
+    // I need to add a function that will reset the state once it is used
+    // I thought about it and if I check it using the last it won't work
+    // because the next pokemon could be the same type
 
     useEffect(() => {
         encounterWildPokemon();
@@ -40,12 +39,24 @@ function App() {
         const max = Math.ceil(251);
         return Math.floor(Math.random() * (max - min + 1)) + min
     }
+
+    // create another get function, but you cant because it will need the same pokeId
     const encounterWildPokemon = () => {
         axios
         .get(`https://pokeapi.co/api/v2/pokemon/${pokeId()}`)
+        // .then(res => {console.log(res.data.types)})
         .then(res => {
             setwildPokemonState(res.data);
-            setContainerOfTypesToState(res.data.types);
+            if (res.data.types[0] && res.data.types[1]) {
+                setPokemonTypeState(res.data.types[0].type.name);
+                setPokemon2ndTypeState(res.data.types[1].type.name);
+            } if (res.data.types[0].type.name && !res.data.types[1]) {
+                setPokemonTypeState(res.data.types[0].type.name);
+                setPokemon2ndTypeState([])
+                // I need to reset "pokemon2ndTypeState" to []
+            } else {
+                console.log("error");
+            }
         })
     }
     // That's it for the only function that will be called as 
@@ -87,7 +98,7 @@ function App() {
                 <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${wildPokemonState.id}.svg`} alt="wild pokemon" className="sprite"/>
                 <h3>{wildPokemonState.name}</h3>
                 <h4>Base Experience: {wildPokemonState.base_experience}</h4>
-                <h4 >Type:</h4>
+                <h4 >Type: {pokemonTypeState}</h4>
                 <button className="catch-btn" onClick={() => catchPokemon(wildPokemonState)}>CATCH THAT POKEMON</button>
             </section>
 
