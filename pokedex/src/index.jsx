@@ -9,7 +9,7 @@ import './index.css';
 // state has a default value of an empty object because there will be 
 // only one wild pokemon present at a time
 
-function App() {
+export default function App() {
     // the "setPokedexState" function will be called when we 
     // click the catch that pokemon button
     // This grabs that pokemon which is currently saved in the 
@@ -78,19 +78,26 @@ function App() {
         encounterWildPokemon();
     }
     const releasePokemon = (id) => {
-        setPokedexState(state => state.filter(p => p.id !== id))
+        // "pokemon.id !== id" the id which is the pokemon id we just clicked on,
+        // which is also going to be called the "independent id" or the "id to compare";
+        // it's being used to evaluate each pokemon's id and return all pokemon's id
+        // that is not the "independent id"
+
+        // "pokemon.id === id" will deleted all the other pokemon's that do not have the matching
+        // id to the "independent id"
+        setPokedexState(state => state.filter(pokemon => pokemon.id !== id))
     }
 
     return (
       <>
       <div className="app-wrapper">
-        <header>
-                <h1 className="title">React Hooks</h1>
-                <h3 className="subtitle">With Pokemon</h3>
+            <header>
+                    <h1 className="title">React Hooks</h1>
+                    <h3 className="subtitle">With Pokemon</h3>
             </header>
 
-{/* ------------------WHERE WE USE THE "wildPokemonState" and "pokemonTypeState" VARIABLE--------------------------------------------------------------------------------------------------------------------- */}
-{/* ------------------TO DYNAMICALLY ADD IT TO THE IMG AND ANYTHING ELSE--------------------------------------------------------------------------------------------------------------------- */}
+    {/* ------------------WHERE WE USE THE "wildPokemonState" and "pokemonTypeState" VARIABLE--------------------------------------------------------------------------------------------------------------------- */}
+    {/* ------------------TO DYNAMICALLY ADD IT TO THE IMG AND ANYTHING ELSE--------------------------------------------------------------------------------------------------------------------- */}
             <section className="wild-pokemon">
                 <h2>Wild Encounter</h2>
                 <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${wildPokemonState.id}.svg`} alt="wild pokemon" className="sprite"/>
@@ -108,9 +115,11 @@ function App() {
                 <div className="pokedex-list">
                     {pokedexState.map((pokemon) => (
                         <div className="pokemon" key={pokemon.id} info={pokemon} >
+                            {/* So each pokemon has more info in their attribute */}
                             <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`} alt="caught pokemon" className="sprite"/>
                             <h3 className="pokemon-name">{pokemon.name}</h3>
                             <button className="remove" onClick={() => releasePokemon(pokemon.id)} >&times;</button>
+                            {/* adding a button with an onClick function that will */}
                         </div>
                     ))}
                 </div>
@@ -124,7 +133,7 @@ function App() {
 
 ReactDOM.render(
     <React.StrictMode>
-      <App />
+            <App />
     </React.StrictMode>,
     document.getElementById('root')
 );
