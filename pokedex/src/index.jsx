@@ -61,18 +61,31 @@ export default function App() {
     // That's it for the only function that will be called as 
     // soon as the page loads, which is "encounterWildPokemon()"
 
-    // All other functions below will be called by a button click
+    // All other functions below will be called by the button click
 
-    const catchPokemon = (pokemon) => {
+    // "catchPokemon" is activated when clicked 
+    const catchPokemon = (wildPokemon) => {
+        // here "wildPokemon" is acting as the "wildPokemonState"
+
+        
         setPokedexState(state => {
-            const monExists = (state.filter(p => pokemon.id === p.id).length > 0);
+            // here we are creating the state for the pokedex BUT its different, b/c we are passing in an arrow function
+  
+            // creates a variable that filters through the state which is the wild pokemon that was clicked on
+            const monExists = (state.filter(p => wildPokemon.id === p.id).length > 0);
 
             if (!monExists) {
-                state = [...state, pokemon]
+
+                // the state is set to the state PLUS the new pokemon which is the "wildPokemon" but under some conditions
+                state = [...state, wildPokemon]
+
+                // sorts in ascending order
                 state.sort(function (a, b) {
+                    // Returns the state under some conditions, in this case it places them in ascending order
                     return a.id - b.id
                 })
             }
+            // Returns the actual pokedex state, which is the array of objects with all the pokemon, which then creates the "pokedexState"
             return state;
         })
         encounterWildPokemon();
@@ -92,7 +105,7 @@ export default function App() {
       <>
       <div className="app-wrapper">
             <header>
-                    <h1 className="title">React Hooks</h1>
+                    <h1 className="title">React</h1>
                     <h3 className="subtitle">With Pokemon</h3>
             </header>
 

@@ -120,7 +120,6 @@ header {
 .pokedex-list {
   width: 100%;
   display: grid;
-  /* background: blue; */
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
   grid-gap: 15px;
   padding-bottom: 20px;
@@ -132,8 +131,6 @@ header {
   flex-flow: column;
   min-height: 150px;
   padding: 15px;
-  /* border-radius: 2px;
-  border: black; */
   background: #f3f3f3;
 }
 
